@@ -25,6 +25,14 @@ firebase.database().ref('users/' + userId).set({
     email: 'Ahamd.23@gmail.com'
   });
   
+  //------------------------------------
+  var ID = 0;
+ID = ID +1;
+  firebase.database().ref('Chat/' + ID).set({
+    from: 'Ahamd ',
+    message: 'مرحبا كيف الحال'
+  });
+  
   
 // Retrieve Data on the Web
 
@@ -36,7 +44,30 @@ console.log('Username : '+snapshot.val().username
  +' & '+ 'Email : '+snapshot.val().email);
 });
 
+//-------------------------------------
+  var ID = 0;
+ID = ID +1;
+firebase.database().ref('/Chat/' + ID).once('value').then(function(snapshot) {
+ 
+console.log('from : '+snapshot.val().from
 
+ +' & '+ 'message : '+snapshot.val().message);
+});
+
+//--------------------------------------------------
+var commentsRef = firebase.database().ref('Chat/' );
+commentsRef.on('child_added', function(data) {
+ 
+console.log('message : ' + data.val().message );
+});
+
+commentsRef.on('child_changed', function(data) {
+  console.log('message : ' + data.val().message );
+});
+
+commentsRef.on('child_removed', function(data) {
+  console.log('message : ' + data.val().message );
+});
 
 
 
